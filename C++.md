@@ -40,6 +40,7 @@ C++
   - 顶层const：指针本身是一个常量。低层const：指针所指对象是一个常量。指针类型即可以是顶层const也可以是底层const
 - struct和class的区别
   - 如果没有标明成员函数或者成员变量的访问权限级别，在struct中默认的是public，而在class中默认是private
+  - 在C语言中，struct不能定义成员函数，而在C++中，增加了class类型后，扩展了struct的功能，struct也能定义成员函数了。
 
 - 头文件保护符（防卫式声明）：ifndef、define、endif
   - 建议写的每一个头文件都要加防卫式声明，能有效防止重复包含的发生
@@ -72,8 +73,37 @@ C++
 - 数组指针和指针数组的区别
   - 数组指针只是一个指针变量，可以认为是C语言中专门用来指向二维数组的,它占用内存中一个指针的存储空间。
   - 指针数组是多个指针变量，以数组形式存在内存当中，占用多个指针的存储空间。
+
+- 程序执行析构函数的时机有以下4 种。
+  - 1) 如果在函数中定义了一个对象，当这个函数调用结束时，对象会被释放，且在对象释放前会自动执行析构函数。
+  - 2) static 局部对象在函数调用结束时对象不释放，所以也不执行析构函数，只有在main 函数结束或调用exit 函数结束程序时，才调用static 局部对象的析构函数。
+  - 3) 全局对象则是在程序流程离开其作用域（如main 函数结束或调用exit 函数） 时，才会执行该全局对象的析构函数。
+  - 4) 用new 建立的对象，用delete 释放该对象时，会调用该对象的析构函数。
 ### <span id = "oop"> 二、OOP / OOD 【面向对象】 </span>
+
+1. 转换函数：
+  -
 ### <span id = "stl"> 三、STL && Generic Programming【STL与泛型编程】 </span>
+1. C++标准库和STL标准模版库的区别：
+  - 标准库80%是STL，标准库>STL,六大部件就是STL、C++标准库的头文件不带副档名，比如#include<vector>，新式头文件的组件都封装于namespace"std",旧式头文件（带副档名）都不封装。
+  - 重要网页：cplusplus.com | cppreference.com | gcc.gnu.org
+2. STL六大部件：容器、分配器、算法、迭代器、适配器、仿函式（containers/allocators/algorithms/iterators/adapters/functors）
+3. 前闭后开区间：容器里的end()传回的指针是容器的后一个元素
+- 容器的结构和分类：
+  - 序列式容器（sequence）、关联式容器（associative 有key适合做查找）、不定序容器（unordered C++新增，本质上是一种关联式容器）
+  - 序列式容器：按放进去的次序来排列
+    - Array：前后都不能扩充
+    - Vector：起点不能扩充，尾部可以自动增长（扩充）
+    - Deque：两端可进可出（可扩充）
+    - List：双向（环状）链表
+    - Forward-list：单向链表
+  - 关联式容器：适合大量查找、选用红黑树（高度平衡二叉树）实现最好
+    - set/Multiset：set的key和value是不分的，所以放的元素不能重复
+    - map/multimap: 每个结点有key和value，元素内容可以重复
+  - Unordered Containers: Hash Table使用Separate Chaining实现最好
+- OOP（面向对象编程）和GP（泛型编程）的差别
+  - OOP企图将datas和methods关联在一起，而GP却把datas和methods分开。
+  - 采用GP的优点：容器和算法可以分开，通过迭代器沟通就可以。Algorithms通过iterators确定操作范围，并通过iterator取用container元素
 ### <span id = "dp"> 四、 Design Patterns【设计模式】 </span>
 ### <span id = "linux"> 五、 Linux【Linux系统编程基础】 </span>
 ### <span id = "ppg"> 六、Process programming【进程编程】 </span>
